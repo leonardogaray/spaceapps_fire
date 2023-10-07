@@ -7,6 +7,13 @@ import { Component } from '@angular/core';
 })
 export class Tab3Page {
 
+  screen: number = 1;
+  img: string = `/assets/images/tutorial/${this.screen}.jpg`;
+
   constructor() {}
 
+  nextScreen() {
+    this.screen++;
+    this.img = `/assets/images/tutorial/${this.screen}.jpg`;
+  }
 }

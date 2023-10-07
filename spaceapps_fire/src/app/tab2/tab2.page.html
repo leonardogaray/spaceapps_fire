@@ -10,5 +10,10 @@
       id="photo-fullscreen" 
       (click)="nextScreen()" 
       src="/assets/images/fire_screen.jpeg">
+    <img 
+      *ngIf="screen==3"
+      id="photo-fullscreen" 
+      (click)="nextScreen()" 
+      src="/assets/images/smoke_screen.jpeg">
   </div>
 </ion-content>
