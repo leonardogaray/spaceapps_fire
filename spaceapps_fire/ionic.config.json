@@ -1,0 +1,7 @@
+{
+  "name": "spaceapps_fire",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
