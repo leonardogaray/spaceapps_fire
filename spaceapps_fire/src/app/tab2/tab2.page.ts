@@ -31,9 +31,13 @@ export class Tab2Page implements OnInit {
       });
   }
 
+  clickButton(fireType: number): void {
+    this.nextScreen();
+  }
+
   takeSnapshot(): void {
     //this.trigger.next();
-    this.nextScreen()
+    this.nextScreen();
     setTimeout(() => {
       this.nextScreen();
     }, 5000);

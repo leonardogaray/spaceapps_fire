@@ -5,16 +5,108 @@
       id="photo-fullscreen" 
       (click)="nextScreen()" 
       src="/assets/images/report_screen.jpeg">
-    <img 
-      *ngIf="screen==2"
-      id="photo-fullscreen" 
-      (click)="nextScreen()" 
-      src="/assets/images/fire_screen.jpeg">
-    <img 
-      *ngIf="screen==3"
-      id="photo-fullscreen" 
-      (click)="nextScreen()" 
-      src="/assets/images/smoke_screen.jpeg">
+    <div *ngIf="screen==2" class="flex-content background">
+      <div class="row">
+        <div class="column-100">
+          <p class="titulo">Flame Color?</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="column-20">&nbsp;</div>
+        <div class="column-30">
+          <a (click)="clickButton(1)" class="nextButton">
+            <img src="/assets/images/boton_amarillo.png">
+          </a>
+        </div>
+        <div class="column-5">&nbsp;</div>
+        <div class="column-30">
+          <a (click)="clickButton(1)" class="nextButton">
+            <img src="/assets/images/boton_naranja.png">
+          </a>
+        </div>
+        <div class="column-20">&nbsp;</div>
+      </div>
+      <div class="row">
+        <div class="column-5">&nbsp;</div>
+        <div class="column-30">
+          <a (click)="clickButton(1)" class="nextButton">
+            <img src="/assets/images/boton_rojo.png">
+          </a>
+        </div>
+        <div class="column-30">
+          <a (click)="clickButton(1)" class="nextButton">
+            <img src="/assets/images/boton_nofire.png">
+          </a>
+        </div>
+        <div class="column-30">
+          <a (click)="clickButton(1)" class="nextButton">
+            <img src="/assets/images/boton_blanco.png">
+          </a>
+        </div>
+        <div class="column-5">&nbsp;</div>
+      </div>
+      <div class="row">
+        <div class="column-20">&nbsp;</div>
+        <div class="column-30">
+          <a (click)="clickButton(1)" class="nextButton">
+            <img src="/assets/images/boton_verde.png">
+          </a>
+        </div>
+        <div class="column-5">&nbsp;</div>
+        <div class="column-30">
+          <a (click)="clickButton(1)" class="nextButton">
+            <img src="/assets/images/boton_azul.png">
+          </a>
+        </div>
+        <div class="column-20">&nbsp;</div>
+      </div>
+    </div>
+    <div *ngIf="screen==3" class="flex-content background">
+      <div class="row">
+        <div class="column-100">
+          <p class="titulo">Smoke Color?</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="column-10">&nbsp;</div>
+        <div class="column-30">
+          <a (click)="clickButton(1)" class="nextButton">
+            <img src="/assets/images/boton_amarillo.png">
+          </a>
+        </div>
+        <div class="column-20">&nbsp;</div>
+        <div class="column-30">
+          <a (click)="clickButton(1)" class="nextButton">
+            <img src="/assets/images/boton_naranja.png">
+          </a>
+        </div>
+        <div class="column-10">&nbsp;</div>
+      </div>
+      <div class="row">
+        <div class="column-35">&nbsp;</div>
+        <div class="column-30">
+          <a (click)="clickButton(1)" class="nextButton">
+            <img src="/assets/images/boton_nofire.png">
+          </a>
+        </div>
+        <div class="column-35">&nbsp;</div>
+      </div>
+      <div class="row">
+        <div class="column-10">&nbsp;</div>
+        <div class="column-30">
+          <a (click)="clickButton(1)" class="nextButton">
+            <img src="/assets/images/boton_verde.png">
+          </a>
+        </div>
+        <div class="column-20">&nbsp;</div>
+        <div class="column-30">
+          <a (click)="clickButton(1)" class="nextButton">
+            <img src="/assets/images/boton_azul.png">
+          </a>
+        </div>
+        <div class="column-10">&nbsp;</div>
+      </div>
+    </div>
     <div *ngIf="screen==4 && isCameraExist">
       <div style="text-align:center">
           <webcam [height]="500" [width]="1000" [trigger]="triggerObservable" (imageCapture)="handleImage($event)"

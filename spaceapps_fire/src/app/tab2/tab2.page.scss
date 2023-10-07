@@ -12,6 +12,14 @@
     max-height: 100%
 }
 
+.background {
+    background-color: #571128;
+}
+
+.nextButton {
+    width: 100px;
+}
+
 .button {
     display:block;
     margin:0 auto;
@@ -20,3 +28,43 @@
     height: 50px;
     font-size: 50px;
 }
+
+.titulo {
+    color: yellow;
+    font-size: 300%;
+}
+
+.column-100 {
+    float: left;
+    width: 100%;
+    margin: 5px;
+}
+.column-35 {
+    float: left;
+    width: 35%;
+}
+.column-30 {
+    float: left;
+    width: 30%;
+}
+.column-20 {
+    float: left;
+    width: 20%;
+}
+.column-10 {
+    float: left;
+    width: 10%;
+}
+.column-5 {
+    float: left;
+    width: 5%;
+}
+  
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+    justify-content: center;
+}
+  
