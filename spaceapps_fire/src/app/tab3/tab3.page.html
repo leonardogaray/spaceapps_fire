@@ -1,8 +1,9 @@
 <ion-content [fullscreen]="true">
-  <div class="flex-content" >
-    <img 
-      id="photo-fullscreen" 
-      (click)="nextScreen()" 
-      [src]="img">
-  </div>
+  <swiper-container>
+    <swiper-slide *ngFor="let screen of screens">
+      <div class="flex-content" >
+        <img [src]="image(screen)">
+      </div>
+    </swiper-slide>
+  </swiper-container>
 </ion-content>
