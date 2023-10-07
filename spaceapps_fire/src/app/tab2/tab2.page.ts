@@ -7,6 +7,11 @@ import { Component } from '@angular/core';
 })
 export class Tab2Page {
 
+  screen: number = 1;
+
   constructor() {}
 
+  nextScreen() {
+    this.screen++;
+  }
 }
