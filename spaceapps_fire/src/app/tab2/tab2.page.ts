@@ -32,7 +32,11 @@ export class Tab2Page implements OnInit {
   }
 
   takeSnapshot(): void {
-    this.trigger.next();
+    //this.trigger.next();
+    this.nextScreen()
+    setTimeout(() => {
+      this.nextScreen();
+    }, 5000);
   }
 
   onOffWebCame() {

@@ -17,13 +17,13 @@
       src="/assets/images/smoke_screen.jpeg">
     <div *ngIf="screen==4 && isCameraExist">
       <div style="text-align:center">
-          <div class="btn-group">
-              <button class="button" (click)="takeSnapshot()">Take Picture</button>
-              <button class="button" (click)="changeWebCame(true)">Toggle Camera</button>
-              <button class="button" (click)="onOffWebCame()">Switch camera</button>
-          </div> <br />
           <webcam [height]="500" [width]="1000" [trigger]="triggerObservable" (imageCapture)="handleImage($event)"
               *ngIf="showWebcam" [switchCamera]="nextWebcamObservable"></webcam>
+          <div class="btn-group">
+              <button class="button" (click)="takeSnapshot()">
+                <ion-icon name="camera"></ion-icon>
+              </button>
+          </div> 
       </div>
   
       <div *ngIf="errors.length > 0">
@@ -32,6 +32,15 @@
               <li>{{ error | json }}</li>
           </ul>
       </div>
-  </div>
+    </div>
+    <img 
+      *ngIf="screen==5"
+      id="photo-fullscreen" 
+      src="/assets/images/smoke_screen.jpeg">
+    <img 
+      *ngIf="screen==6"
+      id="photo-fullscreen" 
+      (click)="nextScreen()" 
+      src="/assets/images/smoke_screen.jpeg">
   </div>
 </ion-content>
