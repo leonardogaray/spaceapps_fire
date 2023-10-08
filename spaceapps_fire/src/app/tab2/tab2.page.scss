@@ -12,10 +12,6 @@
     max-height: 100%
 }
 
-.background {
-    background-color: #571128;
-}
-
 .nextButton {
     width: 100px;
 }
@@ -67,4 +63,22 @@
     clear: both;
     justify-content: center;
 }
+
+ion-spinner {
+    transform: scale(3);
+}
+
+ion-content {
+    background-color: #571128;
+    --offset-bottom: auto!important;
+    --overflow: hidden;
+    overflow: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+}
   
+.camera {
+    text-align:center;
+    background-color: black;
+}

@@ -5,7 +5,7 @@
       id="photo-fullscreen" 
       (click)="nextScreen()" 
       src="/assets/images/report_screen.jpeg">
-    <div *ngIf="screen==2" class="flex-content background">
+    <div *ngIf="screen==2" class="flex-content">
       <div class="row">
         <div class="column-100">
           <p class="titulo">Flame Color?</p>
@@ -61,7 +61,7 @@
         <div class="column-20">&nbsp;</div>
       </div>
     </div>
-    <div *ngIf="screen==3" class="flex-content background">
+    <div *ngIf="screen==3" class="flex-content">
       <div class="row">
         <div class="column-100">
           <p class="titulo">Smoke Color?</p>
@@ -108,8 +108,8 @@
       </div>
     </div>
     <div *ngIf="screen==4 && isCameraExist">
-      <div style="text-align:center">
-          <webcam [height]="500" [width]="1000" [trigger]="triggerObservable" (imageCapture)="handleImage($event)"
+      <div class="camera">
+          <webcam [height]="560" [width]="1000" [trigger]="triggerObservable" (imageCapture)="handleImage($event)"
               *ngIf="showWebcam" [switchCamera]="nextWebcamObservable"></webcam>
           <div class="btn-group">
               <button class="button" (click)="takeSnapshot()">
@@ -125,14 +125,21 @@
           </ul>
       </div>
     </div>
-    <img 
-      *ngIf="screen==5"
-      id="photo-fullscreen" 
-      src="/assets/images/smoke_screen.jpeg">
-    <img 
-      *ngIf="screen==6"
-      id="photo-fullscreen" 
-      (click)="nextScreen()" 
-      src="/assets/images/smoke_screen.jpeg">
+    <div *ngIf="screen==5" class="flex-content">
+      <div class="row">
+        <div class="column-100">
+          <p class="titulo">
+            <ion-spinner></ion-spinner>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="screen==6" class="flex-content">
+      <div class="row">
+        <div class="column-100">
+          <p class="titulo">Gracias!!</p>
+        </div>
+      </div>
+    </div>
   </div>
 </ion-content>
