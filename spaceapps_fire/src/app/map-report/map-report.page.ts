@@ -53,6 +53,11 @@ export class MapReportPage implements AfterViewInit{
   }
 
   ngAfterViewInit(): void {
+    let container: any = L.DomUtil.get('map');
+    if (container && container['_leaflet_id'] != null) {
+      container.remove();
+    }
+    
     this.initMap();
   }
 
