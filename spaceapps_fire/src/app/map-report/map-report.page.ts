@@ -25,7 +25,8 @@ export class MapReportPage implements AfterViewInit{
 
     this.map = L.map('map', {
       center: [ this.lat, this.lng ],
-      zoom: 8
+      zoom: 13,
+      zoomControl: false,
     });
 
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -38,7 +39,7 @@ export class MapReportPage implements AfterViewInit{
 
     this.marker
       .addTo(this.map)
-      .bindPopup("<b>You are here!</b>");
+      .bindPopup("<b>You are here!</b><br/><img src='/assets/images/incendio_delta.jpg'>");
 
     setTimeout(() => { 
       this.map.invalidateSize();
