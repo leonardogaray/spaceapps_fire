@@ -15,6 +15,8 @@ export class MapReportPage implements AfterViewInit{
   private estimatedFirePositions: any = [];
   private maxEstimatedFirePositions: number = 10;
   public currentEstimatedFirePosition: number = 0;
+  private selectedFire: string | null = "";
+  private selectedSmoke: string | null = "";
 
   constructor() { 
   }
@@ -41,13 +43,16 @@ export class MapReportPage implements AfterViewInit{
 
     tiles.addTo(this.map);
 
+    this.selectedFire = localStorage.getItem("fireType");
+    this.selectedSmoke = localStorage.getItem("smokeType");
+
     this.marker
       .addTo(this.map)
       .bindPopup(
-        "<b>You are here</b><br/>" + 
-        "<img width='200px' src='/assets/images/incendio_delta.jpg'><br/>" + 
-        "<img width='30px' src='/assets/images/boton_rojo.png'>" + 
-        "<img width='30px' src='/assets/images/boton_blanco.png'>");
+        `<b>You are here</b><br/>` + 
+        `<img width='200px' src='/assets/images/incendio_delta.jpg'><br/>` + 
+        `<img width='30px' src='/assets/images/fire_${this.selectedFire}.png'>` + 
+        `<img width='30px' src='/assets/images/smoke_${this.selectedSmoke}.png'>`);
 
     setTimeout(() => { 
       this.map.invalidateSize();
