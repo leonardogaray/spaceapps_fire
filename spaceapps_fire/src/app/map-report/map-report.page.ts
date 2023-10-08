@@ -13,7 +13,12 @@ export class MapReportPage implements AfterViewInit{
   private lat: number = -33.27688650546989;
   private lng: number = -59.820610521170714;
 
-  constructor() { }
+  constructor() { 
+    let container: any = L.DomUtil.get('map');
+    if (container && container['_leaflet_id'] != null) {
+      container.remove();
+    }
+  }
 
   private initMap(): void {
     const defaultIcon = L.icon({

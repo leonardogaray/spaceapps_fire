@@ -1,6 +1,6 @@
 {
-  "name": "app",
-  "short_name": "app",
+  "name": "MIL",
+  "short_name": "MIL",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",
