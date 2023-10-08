@@ -14,3 +14,30 @@
 #map {
     height: 100%;
 }
+
+.centered {
+    position: absolute;
+    top: 80%;
+    left: 80%;
+    transform: translate(-50%, -50%);
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+    justify-content: center;
+}
+
+.column-100 {
+    float: left;
+    width: 100%;
+    margin: 5px;
+}
+
+.titulo {
+    color: black;
+    font-size: 200%;
+    z-index: 1000;
+}

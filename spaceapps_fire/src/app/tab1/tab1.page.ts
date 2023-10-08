@@ -17,10 +17,6 @@ export class Tab1Page implements AfterViewInit{
   
 
   constructor(private httpClient: HttpClient) { 
-    let container: any = L.DomUtil.get('map');
-    if (container && container['_leaflet_id'] != null) {
-      container.remove();
-    }
   }
 
   private initMap(): void {
@@ -46,20 +42,22 @@ export class Tab1Page implements AfterViewInit{
 
     this.marker
       .addTo(this.map)
-      .bindPopup("<b>You are here!</b>");
+      .bindPopup("<b>You are here</b>");
 
     setTimeout(() => { 
       this.map.invalidateSize();
     }, 500 );
 
-
     this.loadDataVIIRS();
     this.loadDataMODIS();
-    console.log(this.randomPointInPolygon());
-    
   }
 
   ngAfterViewInit(): void {
+    let container: any = L.DomUtil.get('map');
+    if (container && container['_leaflet_id'] != null) {
+      container.remove();
+    }
+
     let self = this;
     navigator.geolocation.getCurrentPosition(function(position){
       //self.lat = position.coords.latitude;
