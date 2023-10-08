@@ -13,6 +13,8 @@ export class Tab1Page implements AfterViewInit{
   private marker: any;
   private lat: number = -33.27688650546989;
   private lng: number = -59.820610521170714;
+  private formattedDate: any = this.Today();
+  
 
   constructor(private httpClient: HttpClient) { }
 
@@ -38,7 +40,11 @@ export class Tab1Page implements AfterViewInit{
       this.map.invalidateSize();
     }, 500 );
 
-    this.loadData();
+
+    this.loadDataVIIRS();
+    this.loadDataMODIS();
+    console.log(this.randomPointInPolygon());
+    
   }
 
   ngAfterViewInit(): void {
@@ -52,8 +58,9 @@ export class Tab1Page implements AfterViewInit{
     },{timeout:10000});
   }
 
-  loadData(): void{
-    let url = "https://firms.modaps.eosdis.nasa.gov/api/country/csv/76db7f998faeaeb1d02f68b315bb5a12/VIIRS_SNPP_NRT/ARG/1/2023-10-07";
+  loadDataVIIRS(): void{
+
+    let url = "https://firms.modaps.eosdis.nasa.gov/api/country/csv/76db7f998faeaeb1d02f68b315bb5a12/VIIRS_SNPP_NRT/ARG/1/" + this.formattedDate;
     const headers = new HttpHeaders({
         Accept: 'text/csv',
     });
@@ -62,7 +69,25 @@ export class Tab1Page implements AfterViewInit{
       .get(url, {headers, responseType: 'text'})
       .subscribe(response => {
         let jsonData = this.csv2Json(response);
-        let coordinates = this.processData(jsonData);
+        let coordinates = this.processDataVIIRS(jsonData);
+        this.generateFires(coordinates);
+      });
+  }
+
+  loadDataMODIS(): void{
+
+    const now = new Date();
+
+    let url = "https://firms.modaps.eosdis.nasa.gov/api/country/csv/76db7f998faeaeb1d02f68b315bb5a12/MODIS_NRT/ARG/1/" + this.formattedDate;
+    const headers = new HttpHeaders({
+        Accept: 'text/csv',
+    });
+
+    this.httpClient
+      .get(url, {headers, responseType: 'text'})
+      .subscribe(response => {
+        let jsonData = this.csv2Json(response);
+        let coordinates = this.processDataMODIS(jsonData);
         this.generateFires(coordinates);
       });
   }
@@ -94,25 +119,126 @@ export class Tab1Page implements AfterViewInit{
     return result;
   }
 
-  private isCoordinateInsideRectangle(
-    lat: number, lon: number, minLat: number, maxLat: number, minLon: number, maxLon: number) {
-      return lat >= minLat && lat <= maxLat && lon >= minLon && lon <= maxLon;
+
+  private isPointInsidePolygon(
+    pointLat: number, pointLon: number, polygon: Array<[number, number]>
+  ): boolean {
+    const x = pointLon;
+    const y = pointLat;
+
+    let isInside = false;
+    for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+      const xi = polygon[i][0];
+      const yi = polygon[i][1];
+      const xj = polygon[j][0];
+      const yj = polygon[j][1];
+
+      const intersect = ((yi > y) !== (yj > y)) &&
+        (x < ((xj - xi) * (y - yi)) / (yj - yi) + xi);
+      if (intersect) {
+        isInside = !isInside;
+      }
+    }
+
+    
+
+    return isInside;
   }
 
-  private processData(lines: any) {
-      const minLat:number = -34.53191815752273;
-      const maxLat:number = -31.7585755065532;
-      const minLon:number = -61.026920398474445;
-      const maxLon:number = -58.20905577137098;
+  private processDataVIIRS(lines: any) {
+
+      const polygon: Array<[number, number]> = [
+        [-60.7035826, -31.9551536],
+        [-59.9875480, -32.7282481],
+        [-59.3283683, -33.2261903],
+        [-59.1306144, -33.1111758],
+        [-58.4439689, -33.2813436],
+        [-58.3615714, -34.0498202],
+        [-58.4879142, -34.4903853],
+        [-60.2457267, -33.3685985],
+        [-60.7016593, -32.8991555],
+        [-60.8115226, -32.5199454],
+        [-60.7071524, -31.9574472],
+        [-60.3555905, -32.3289323]
+      ];
 
       const filteredFires = lines
           .filter((fire: any) => {
               const lat = parseFloat(fire.latitude);
               const lon = parseFloat(fire.longitude);
-              return this.isCoordinateInsideRectangle(lat, lon, minLat, maxLat, minLon, maxLon);
+              return this.isPointInsidePolygon(lat, lon, polygon); //&& fire.confidence == 'h'; 
+              //delete ';//' in line 144 after '...(lat, lon, polygon) ' to filter shown hotspots, leaving only those that are likely to be real fires
           });
 
       return filteredFires;
   }
 
+  private processDataMODIS(lines: any) {
+
+    const polygon: Array<[number, number]> = [
+      [-60.7035826, -31.9551536],
+      [-59.9875480, -32.7282481],
+      [-59.3283683, -33.2261903],
+      [-59.1306144, -33.1111758],
+      [-58.4439689, -33.2813436],
+      [-58.3615714, -34.0498202],
+      [-58.4879142, -34.4903853],
+      [-60.2457267, -33.3685985],
+      [-60.7016593, -32.8991555],
+      [-60.8115226, -32.5199454],
+      [-60.7071524, -31.9574472],
+      [-60.3555905, -32.3289323]
+    ];
+
+    const filteredFires = lines
+        .filter((fire: any) => {
+            const lat = parseFloat(fire.latitude);
+            const lon = parseFloat(fire.longitude);
+            return this.isPointInsidePolygon(lat, lon, polygon); //&& fire.confidence >= 40; 
+            //delete ';//' in line 195 after '...(lat, lon, polygon) ' to filter shown hotspots, leaving only those that are likely to be real fires
+        });
+
+    return filteredFires;
 }
+
+private Today(): any{
+  const now = new Date();
+    const year = now.getFullYear();
+    const month = (now.getMonth() + 1).toString().padStart(2, '0'); // Adding 1 because January is 0
+    const day = now.getDate().toString().padStart(2, '0');
+
+    const todayDate = `${year}-${month}-${day}`;
+    return todayDate;
+}
+
+private randomPointInPolygon(): any{
+
+  const insidePolygon: Array<[number, number]> = [
+    [-59.7095706, -33.3421606],
+    [-59.5942142, -33.5118786],
+    [-59.2096927, -33.5439501],
+    [-59.3085696, -33.3926520],
+    [-59.4788577, -33.7498394],
+    [-59.8468997, -33.5989020],
+    [-59.8139407, -32.9786816],
+    [-60.3577640, -33.1353003],
+    [-58.5999515, -33.4110052],
+    [-58.6054446, -33.8092268],
+    [-58.7812259, -33.6217884],
+    [-58.6109378, -34.1191965],
+    [-58.8416507, -34.1146463],
+    [-58.8746097, -33.8411876],
+    [-59.0503909, -33.8776995],
+    [-58.9570071, -33.6034798],
+    [-59.0119388, -33.4431140],
+    [-60.5774905, -32.6923670],
+    [-60.5884769, -32.3587168],
+    [-60.4511478, -32.8818075],
+  ];
+  
+  return insidePolygon[Math.floor(Math.random() * 19)];
+
+}
+
+}
+
