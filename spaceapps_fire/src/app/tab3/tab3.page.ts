@@ -12,6 +12,6 @@ export class Tab3Page {
   constructor() {}
 
   image(screen: number) {
-    return `/assets/images/tutorial/${screen}.jpg`;
+    return `/assets/images/tutorial/${screen}.png`;
   }
 }
