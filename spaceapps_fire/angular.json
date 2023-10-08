@@ -32,15 +32,18 @@
               },
               {
                 "glob": "**/*",
-                "input": "node_modules/leaflet/dist/images/", 
+                "input": "node_modules/leaflet/dist/images/",
                 "output": "./assets/"
-              }
+              },
+              "src/manifest.webmanifest"
             ],
             "styles": [
               "src/theme/variables.scss", 
               "src/global.scss", 
               "./node_modules/leaflet/dist/leaflet.css"],
-            "scripts": []
+            "scripts": [],
+            "serviceWorker": true,
+            "ngswConfigPath": "ngsw-config.json"
           },
           "configurations": {
             "production": {
@@ -120,9 +123,10 @@
               },
               {
                 "glob": "**/*",
-                "input": "node_modules/leaflet/dist/images/", 
+                "input": "node_modules/leaflet/dist/images/",
                 "output": "./assets/"
-              }
+              },
+              "src/manifest.webmanifest"
             ],
             "styles": ["src/theme/variables.scss", "src/global.scss", "./node_modules/leaflet/dist/leaflet.css"],
             "scripts": []
@@ -149,7 +153,8 @@
   "cli": {
     "schematicCollections": [
       "@ionic/angular-toolkit"
-    ]
+    ],
+    "analytics": false
   },
   "schematics": {
     "@ionic/angular-toolkit:component": {

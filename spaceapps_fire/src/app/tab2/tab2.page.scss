@@ -82,3 +82,27 @@ ion-content {
     text-align:center;
     background-color: black;
 }
+
+.centered {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.map-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+  
+.map-frame {
+    border: 2px solid black;
+    height: 100%;
+}
+  
+#map {
+    height: 100%;
+}

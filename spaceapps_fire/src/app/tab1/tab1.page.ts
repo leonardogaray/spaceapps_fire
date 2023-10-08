@@ -54,8 +54,9 @@ export class Tab1Page implements AfterViewInit{
       //self.lat = position.coords.latitude;
       //self.lng = position.coords.longitude;
       self.initMap();
-    },function(){
-        alert('User not allowed')
+    },function(e){
+      console.log("SSL Certificate required", e);
+      self.initMap();
     },{timeout:10000});
   }
 

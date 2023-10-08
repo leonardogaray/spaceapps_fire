@@ -1,10 +1,15 @@
 <ion-content [fullscreen]="true">
   <div class="flex-content" >
-    <img 
-      *ngIf="screen==1"
-      id="photo-fullscreen" 
-      (click)="nextScreen()" 
-      src="/assets/images/report_screen.jpeg">
+    <div *ngIf="screen==1" class="flex-content">
+      <div class="row" (click)="nextScreen()" >
+        <div class="column-100 report-fire">
+          <img 
+            id="photo-fullscreen" 
+            src="/assets/images/report_fire.png">
+          <p class="titulo centered">Report Fire</p>
+        </div>
+      </div>
+    </div>
     <div *ngIf="screen==2" class="flex-content">
       <div class="row">
         <div class="column-100">
@@ -131,13 +136,6 @@
           <p class="titulo">
             <ion-spinner></ion-spinner>
           </p>
-        </div>
-      </div>
-    </div>
-    <div *ngIf="screen==6" class="flex-content">
-      <div class="row">
-        <div class="column-100">
-          <p class="titulo">Gracias!!</p>
         </div>
       </div>
     </div>
