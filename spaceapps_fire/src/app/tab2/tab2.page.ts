@@ -35,7 +35,13 @@ export class Tab2Page implements OnInit {
       });
   }
 
-  clickButton(fireType: number): void {
+  clickFireButton(fireType: string): void {
+    localStorage.setItem('fireType', fireType);
+    this.nextScreen();
+  }
+
+  clickSmokeButton(smokeType: string): void {
+    localStorage.setItem('smokeType', smokeType);
     this.nextScreen();
   }
 

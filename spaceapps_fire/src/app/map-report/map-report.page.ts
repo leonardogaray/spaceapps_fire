@@ -43,7 +43,11 @@ export class MapReportPage implements AfterViewInit{
 
     this.marker
       .addTo(this.map)
-      .bindPopup("<b>You are here!</b><br/><img src='/assets/images/incendio_delta.jpg'>");
+      .bindPopup(
+        "<b>You are here</b><br/>" + 
+        "<img width='200px' src='/assets/images/incendio_delta.jpg'><br/>" + 
+        "<img width='30px' src='/assets/images/boton_rojo.png'>" + 
+        "<img width='30px' src='/assets/images/boton_blanco.png'>");
 
     setTimeout(() => { 
       this.map.invalidateSize();
