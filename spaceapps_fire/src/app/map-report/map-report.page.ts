@@ -13,7 +13,7 @@ export class MapReportPage implements AfterViewInit{
   private lat: number = -33.27688650546989;
   private lng: number = -59.820610521170714;
   private estimatedFirePositions: any = [];
-  private maxEstimatedFirePositions: number = 10;
+  private maxEstimatedFirePositions: number = 9;
   public currentEstimatedFirePosition: number = 0;
   private selectedFire: string | null = "";
   private selectedSmoke: string | null = "";
