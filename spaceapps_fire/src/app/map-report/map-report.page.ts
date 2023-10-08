@@ -12,12 +12,11 @@ export class MapReportPage implements AfterViewInit{
   private marker: any;
   private lat: number = -33.27688650546989;
   private lng: number = -59.820610521170714;
+  private estimatedFirePositions: any = [];
+  private maxEstimatedFirePositions: number = 10;
+  public currentEstimatedFirePosition: number = 0;
 
   constructor() { 
-    let container: any = L.DomUtil.get('map');
-    if (container && container['_leaflet_id'] != null) {
-      container.remove();
-    }
   }
 
   private initMap(): void {
@@ -48,6 +47,7 @@ export class MapReportPage implements AfterViewInit{
 
     setTimeout(() => { 
       this.map.invalidateSize();
+      this.generateFireAnimation();
       this.addFireAnimations();
     }, 500 );
   }
@@ -56,21 +56,44 @@ export class MapReportPage implements AfterViewInit{
     this.initMap();
   }
 
+  generateFireAnimation(): void {
+    for(let i=0; i<this.maxEstimatedFirePositions;i++){
+      let lat, lng;
+      if(i===0){
+        lat = this.lat;
+        lng = this.lng;
+      }else{
+        lat = this.estimatedFirePositions[i-1].latitude;
+        lng = this.estimatedFirePositions[i-1].longitude;
+      }
+      let randomPoint = this.generateRandomPoint(lat, lng, Math.random() * (100 - 150) + 100);
+      this.estimatedFirePositions.push(randomPoint);
+    }
+  }
+
   addFireAnimations(): void {
     let self = this;
 
-    let randomDistance = Math.random() * (100 - 150) + 100;
-    const randomPoint = this.generateRandomPoint(this.lat, this.lng, randomDistance);
+    if(this.estimatedFirePositions.length === this.currentEstimatedFirePosition){
+      this.currentEstimatedFirePosition = 1;
+      for(let i=0; i<this.maxEstimatedFirePositions;i++){
+        this.map.removeLayer(this.estimatedFirePositions[i].marker);
+      }
+    }else{
+      this.currentEstimatedFirePosition++;
+    }
+    let randomPoint = this.estimatedFirePositions[this.currentEstimatedFirePosition-1];
+ 
     this.lat = randomPoint.latitude;
     this.lng = randomPoint.longitude;
-
-    L.circle([this.lat, this.lng], {
+    randomPoint.marker = L.circle([randomPoint.latitude, randomPoint.longitude], {
       color: 'red',
       fillColor: 'red',
       fillOpacity: 0.5,
       radius: 100
-    })
-      .addTo(self.map);
+    });
+
+    randomPoint.marker.addTo(self.map);
 
     setTimeout(function () {
       self.addFireAnimations();
@@ -104,7 +127,8 @@ export class MapReportPage implements AfterViewInit{
   
     return {
       latitude: newLatitude,
-      longitude: newLongitude
+      longitude: newLongitude,
+      randomDistance: distanceInMeters
     };
   }
   

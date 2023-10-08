@@ -17,10 +17,7 @@ export class Tab1Page implements AfterViewInit{
   
 
   constructor(private httpClient: HttpClient) { 
-    let container: any = L.DomUtil.get('map');
-    if (container && container['_leaflet_id'] != null) {
-      container.remove();
-    }
+
   }
 
   private initMap(): void {
