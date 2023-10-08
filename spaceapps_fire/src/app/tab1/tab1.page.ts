@@ -16,14 +16,24 @@ export class Tab1Page implements AfterViewInit{
   private formattedDate: any = this.Today();
   
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) { 
+    let container: any = L.DomUtil.get('map');
+    if (container && container['_leaflet_id'] != null) {
+      container.remove();
+    }
+  }
 
   private initMap(): void {
-    this.marker = L.marker([this.lat, this.lng]);
+    const defaultIcon = L.icon({
+      iconUrl: './assets/marker-icon.png',
+      shadowUrl: './assets/marker-shadow.png'
+    });
+
+    this.marker = L.marker([this.lat, this.lng], {icon: defaultIcon});
 
     this.map = L.map('map', {
       center: [ this.lat, this.lng ],
-      zoom: 13
+      zoom: 8
     });
 
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -34,7 +44,9 @@ export class Tab1Page implements AfterViewInit{
 
     tiles.addTo(this.map);
 
-    this.marker.addTo(this.map)
+    this.marker
+      .addTo(this.map)
+      .bindPopup("<b>You are here!</b>");
 
     setTimeout(() => { 
       this.map.invalidateSize();
@@ -53,8 +65,9 @@ export class Tab1Page implements AfterViewInit{
       //self.lat = position.coords.latitude;
       //self.lng = position.coords.longitude;
       self.initMap();
-    },function(){
-        alert('User not allowed')
+    },function(e){
+      console.log("SSL Certificate required", e);
+      self.initMap();
     },{timeout:10000});
   }
 
@@ -100,7 +113,11 @@ export class Tab1Page implements AfterViewInit{
         fillColor: 'red',
         fillOpacity: 0.5,
         radius: 1000
-      }).addTo(self.map);
+      })
+        .addTo(self.map)
+        .bindPopup(
+          `<b>Lat:</b> ${coordinate.latitude}<br/>` +
+          `<b>Lng:</b> ${coordinate.longitude}<br/>`);
     });
   }
 

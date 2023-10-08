@@ -11,3 +11,98 @@
     max-width: 100%;
     max-height: 100%
 }
+
+.nextButton {
+    width: 100px;
+}
+
+.button {
+    display:block;
+    margin:0 auto;
+    --border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 50px;
+}
+
+.titulo {
+    color: yellow;
+    font-size: 300%;
+}
+
+.column-100 {
+    float: left;
+    width: 100%;
+    margin: 5px;
+}
+.column-35 {
+    float: left;
+    width: 35%;
+}
+.column-30 {
+    float: left;
+    width: 30%;
+}
+.column-20 {
+    float: left;
+    width: 20%;
+}
+.column-10 {
+    float: left;
+    width: 10%;
+}
+.column-5 {
+    float: left;
+    width: 5%;
+}
+  
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+    justify-content: center;
+}
+
+ion-spinner {
+    transform: scale(3);
+}
+
+ion-content {
+    background-color: #571128;
+    --offset-bottom: auto!important;
+    --overflow: hidden;
+    overflow: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+}
+  
+.camera {
+    text-align:center;
+    background-color: black;
+}
+
+.centered {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.map-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+  
+.map-frame {
+    border: 2px solid black;
+    height: 100%;
+}
+  
+#map {
+    height: 100%;
+}

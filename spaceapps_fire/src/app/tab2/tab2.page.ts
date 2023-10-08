@@ -1,6 +1,7 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
 import { Observable, Subject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab2',
@@ -18,10 +19,13 @@ export class Tab2Page implements OnInit {
 
   screen: number = 1;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   nextScreen() {
     this.screen++;
+    if(this.screen == 6){
+      this.router.navigate(['/tabs/map-report']);
+    }
   }
 
   ngOnInit(): void {
@@ -31,8 +35,16 @@ export class Tab2Page implements OnInit {
       });
   }
 
+  clickButton(fireType: number): void {
+    this.nextScreen();
+  }
+
   takeSnapshot(): void {
-    this.trigger.next();
+    //this.trigger.next();
+    this.nextScreen();
+    setTimeout(() => {
+      this.nextScreen();
+    }, 5000);
   }
 
   onOffWebCame() {
@@ -59,4 +71,5 @@ export class Tab2Page implements OnInit {
   get nextWebcamObservable(): Observable<boolean | string> {
     return this.nextWebcam.asObservable();
   }
+
 }

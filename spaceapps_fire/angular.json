@@ -29,13 +29,21 @@
                 "glob": "**/*.svg",
                 "input": "node_modules/ionicons/dist/ionicons/svg",
                 "output": "./svg"
-              }
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/leaflet/dist/images/",
+                "output": "./assets/"
+              },
+              "src/manifest.webmanifest"
             ],
             "styles": [
               "src/theme/variables.scss", 
               "src/global.scss", 
               "./node_modules/leaflet/dist/leaflet.css"],
-            "scripts": []
+            "scripts": [],
+            "serviceWorker": true,
+            "ngswConfigPath": "ngsw-config.json"
           },
           "configurations": {
             "production": {
@@ -115,9 +123,10 @@
               },
               {
                 "glob": "**/*",
-                "input": "node_modules/leaflet/dist/images/", 
+                "input": "node_modules/leaflet/dist/images/",
                 "output": "./assets/"
-             }
+              },
+              "src/manifest.webmanifest"
             ],
             "styles": ["src/theme/variables.scss", "src/global.scss", "./node_modules/leaflet/dist/leaflet.css"],
             "scripts": []
